@@ -1,0 +1,175 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/typicode/lowdb"
+
+    >lowdb (v0.16.0)</a>
+</h1>
+<h4>JSON database for Node and the browser powered by lodash API</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.lowdb">module lowdb</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">lowdb.</span>common</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.lowdb.common">module lowdb.common</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.common.init">
+            function <span class="apidocSignatureSpan">lowdb.common.</span>init
+            <span class="apidocSignatureSpan">(db, key, source)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.lowdb" id="apidoc.module.lowdb">module lowdb</a></h1>
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.lowdb.common" id="apidoc.module.lowdb.common">module lowdb.common</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.common.init" id="apidoc.element.lowdb.common.init">
+        function <span class="apidocSignatureSpan">lowdb.common.</span>init
+        <span class="apidocSignatureSpan">(db, key, source)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function init(db, key, source) {
+  var _ref = arguments.length &#x3e; 3 &#x26;&#x26; arguments[3] !== undefined ? arguments[3] : {},
+      _ref$storage = _ref.storage,
+      storage = _ref$storage === undefined ? defaultStorage : _ref$storage,
+      _ref$format = _ref.format,
+      format = _ref$format === undefined ? {} : _ref$format;
+
+  db.source = source;
+
+  // Set storage
+  // In-memory only if no source is provided
+  db.storage = _extends({}, memory, db.source &#x26;&#x26; storage);
+
+  db.read = function () {
+    var s = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : source;
+
+    var r = db.storage.read(s, format.deserialize);
+
+    return isPromise(r) ? r.then(db.plant) : db.plant(r);
+  };
+
+  db.write = function () {
+    var dest = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : source;
+
+    var value = (arguments.length &#x3c;= 1 ? 0 : arguments.length - 1) ? arguments.length &#x3c;= 1 ? undefined : arguments[1] : db.getState
+();
+
+    var w = db.storage.write(dest, db.getState(), format.serialize);
+    return isPromise(w) ? w.then(function () {
+      return value;
+    }) : value;
+  };
+
+  db.plant = function (state) {
+    db[key] = state;
+    return db;
+  };
+
+  db.getState = function () {
+    return db[key];
+  };
+
+  db.setState = function (state) {
+    db.plant(state);
+    return db.write();
+  };
+
+  return db.read();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      set(db.getState(), path, result);
+      return db.write(source, result);
+    };
+
+    return getValue;
+  }
+
+  return common.<span class="apidocCodeKeywordSpan">init</span>(db, &#x27;__state__&#x27;, source, opts);
+};
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
