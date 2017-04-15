@@ -51,7 +51,7 @@
 
         href="https://github.com/typicode/lowdb"
 
-    >lowdb (v0.16.0)</a>
+    >lowdb (v0.16.2)</a>
 </h1>
 <h4>JSON database for Node and the browser powered by lodash API</h4>
 <div class="apidocSectionDiv"><a
@@ -63,19 +63,18 @@
 
         <li>
 
-            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">lowdb.</span>common</span>
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.lowdb">
+            function <span class="apidocSignatureSpan"></span>lowdb
+            <span class="apidocSignatureSpan">(source)</span>
+            </a>
 
         </li>
 
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.lowdb.common">module lowdb.common</a><ol>
-
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.lowdb.common.init">
-            function <span class="apidocSignatureSpan">lowdb.common.</span>init
-            <span class="apidocSignatureSpan">(db, key, source)</span>
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.toString">
+            function <span class="apidocSignatureSpan">lowdb.</span>toString
+            <span class="apidocSignatureSpan">()</span>
             </a>
 
         </li>
@@ -88,80 +87,50 @@
 <h1><a href="#apidoc.module.lowdb" id="apidoc.module.lowdb">module lowdb</a></h1>
 
 
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.lowdb.common" id="apidoc.module.lowdb.common">module lowdb.common</a></h1>
-
-
     <h2>
-        <a href="#apidoc.element.lowdb.common.init" id="apidoc.element.lowdb.common.init">
-        function <span class="apidocSignatureSpan">lowdb.common.</span>init
-        <span class="apidocSignatureSpan">(db, key, source)</span>
+        <a href="#apidoc.element.lowdb.lowdb" id="apidoc.element.lowdb.lowdb">
+        function <span class="apidocSignatureSpan"></span>lowdb
+        <span class="apidocSignatureSpan">(source)</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">function init(db, key, source) {
-  var _ref = arguments.length &#x3e; 3 &#x26;&#x26; arguments[3] !== undefined ? arguments[3] : {},
-      _ref$storage = _ref.storage,
-      storage = _ref$storage === undefined ? defaultStorage : _ref$storage,
-      _ref$format = _ref.format,
-      format = _ref$format === undefined ? {} : _ref$format;
+    <li>description and source-code<pre class="apidocCodePre">lowdb = function (source) {
+  var opts = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : {};
 
-  db.source = source;
+  // Create a fresh copy of lodash
+  var _ = lodash.runInContext();
+  var db = _.chain({});
 
-  // Set storage
-  // In-memory only if no source is provided
-  db.storage = _extends({}, memory, db.source &#x26;&#x26; storage);
+  // Expose _ for mixins
+  db._ = _;
 
-  db.read = function () {
-    var s = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : source;
+  // Add write function to lodash
+  // Calls save before returning result
+  _.prototype.write = _.wrap(_.prototype.value, function (func) {
+    var dest = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : source;
 
-    var r = db.storage.read(s, format.deserialize);
+    var funcRes = func.apply(this);
+    return db.write(dest, funcRes);
+  });
 
-    return isPromise(r) ? r.then(db.plant) : db.plant(r);
-  };
-
-  db.write = function () {
-    var dest = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : source;
-
-    var value = (arguments.length &#x3c;= 1 ? 0 : arguments.length - 1) ? arguments.length &#x3c;= 1 ? undefined : arguments[1] : db.getState
-();
-
-    var w = db.storage.write(dest, db.getState(), format.serialize);
-    return isPromise(w) ? w.then(function () {
-      return value;
-    }) : value;
-  };
-
-  db.plant = function (state) {
-    db[key] = state;
-    return db;
-  };
-
-  db.getState = function () {
-    return db[key];
-  };
-
-  db.setState = function (state) {
-    db.plant(state);
-    return db.write();
-  };
-
-  return db.read();
+  return common.init(db, &#x27;__wrapped__&#x27;, source, opts);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-      set(db.getState(), path, result);
-      return db.write(source, result);
-    };
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
 
-    return getValue;
-  }
 
-  return common.<span class="apidocCodeKeywordSpan">init</span>(db, &#x27;__state__&#x27;, source, opts);
-};
-...</pre></li>
+
+    <h2>
+        <a href="#apidoc.element.lowdb.toString" id="apidoc.element.lowdb.toString">
+        function <span class="apidocSignatureSpan">lowdb.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return toString;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 

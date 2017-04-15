@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/typicode/lowdb"
-
-    >lowdb (v0.16.2)</a>
+    <a href="https://github.com/typicode/lowdb">lowdb (v0.16.2)</a>
 </h1>
 <h4>JSON database for Node and the browser powered by lodash API</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.lowdb">module lowdb</a><ol>
 
@@ -95,7 +88,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">lowdb = function (source) {
-  var opts = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : {};
+  var opts = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
 
   // Create a fresh copy of lodash
   var _ = lodash.runInContext();
@@ -107,13 +100,13 @@
   // Add write function to lodash
   // Calls save before returning result
   _.prototype.write = _.wrap(_.prototype.value, function (func) {
-    var dest = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : source;
+    var dest = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : source;
 
     var funcRes = func.apply(this);
     return db.write(dest, funcRes);
   });
 
-  return common.init(db, &#x27;__wrapped__&#x27;, source, opts);
+  return common.init(db, '__wrapped__', source, opts);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -142,3 +135,4 @@
     ]
 </div>
 </div>
+</body></html>
