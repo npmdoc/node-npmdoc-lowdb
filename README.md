@@ -1,11 +1,13 @@
-# api documentation for  [lowdb (v0.16.0)](https://github.com/typicode/lowdb)  [![npm package](https://img.shields.io/npm/v/npmdoc-lowdb.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-lowdb) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-lowdb.svg)](https://travis-ci.org/npmdoc/node-npmdoc-lowdb)
+# api documentation for  [lowdb (v0.16.2)](https://github.com/typicode/lowdb)  [![npm package](https://img.shields.io/npm/v/npmdoc-lowdb.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-lowdb) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-lowdb.svg)](https://travis-ci.org/npmdoc/node-npmdoc-lowdb)
 #### JSON database for Node and the browser powered by lodash API
 
-[![NPM](https://nodei.co/npm/lowdb.png?downloads=true)](https://www.npmjs.com/package/lowdb)
+[![NPM](https://nodei.co/npm/lowdb.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/lowdb)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-lowdb/build/screen-capture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-lowdb_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-lowdb/build..beta..travis-ci.org/apidoc.html)
+[![apidoc](https://npmdoc.github.io/node-npmdoc-lowdb/build/screenCapture.buildCi.browser.apidoc.html.png)](https://npmdoc.github.io/node-npmdoc-lowdb/build/apidoc.html)
 
-![package-listing](https://npmdoc.github.io/node-npmdoc-lowdb/build/screen-capture.npmPackageListing.svg)
+![npmPackageListing](https://npmdoc.github.io/node-npmdoc-lowdb/build/screenCapture.npmPackageListing.svg)
+
+![npmPackageDependencyTree](https://npmdoc.github.io/node-npmdoc-lowdb/build/screenCapture.npmPackageDependencyTree.svg)
 
 
 
@@ -15,8 +17,7 @@
 
 {
     "author": {
-        "name": "Typicode",
-        "email": "typicode@gmail.com"
+        "name": "Typicode"
     },
     "browser": {
         "./src/storages/file-sync.js": "./src/storages/browser.js",
@@ -28,7 +29,6 @@
     "dependencies": {
         "graceful-fs": "^4.1.3",
         "is-promise": "^2.1.0",
-        "json-parse-helpfulerror": "^1.0.3",
         "lodash": "4",
         "steno": "^0.4.1"
     },
@@ -55,13 +55,13 @@
     },
     "directories": {},
     "dist": {
-        "shasum": "0e3fb37332fa6189eca2d864e7ad9dc989359866",
-        "tarball": "https://registry.npmjs.org/lowdb/-/lowdb-0.16.0.tgz"
+        "shasum": "a2a976eb66ec57797291970f3c87cdb61126fa3a",
+        "tarball": "https://registry.npmjs.org/lowdb/-/lowdb-0.16.2.tgz"
     },
     "engines": {
         "node": ">= 0.12"
     },
-    "gitHead": "e72e967f463a393d63599568593d87cd0d84810e",
+    "gitHead": "4a76af0f79d900043fd5ebf0ff4b378e8404bd89",
     "homepage": "https://github.com/typicode/lowdb",
     "keywords": [
         "flat",
@@ -81,13 +81,11 @@
     "main": "./lib/main.js",
     "maintainers": [
         {
-            "name": "typicode",
-            "email": "typicode@gmail.com"
+            "name": "typicode"
         }
     ],
     "name": "lowdb",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git://github.com/typicode/lowdb.git"
@@ -105,7 +103,7 @@
     "standard": {
         "parser": "babel-eslint"
     },
-    "version": "0.16.0"
+    "version": "0.16.2"
 }
 ```
 
@@ -114,85 +112,53 @@
 # <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
 
 #### [module lowdb](#apidoc.module.lowdb)
-1.  object <span class="apidocSignatureSpan">lowdb.</span>common
-
-#### [module lowdb.common](#apidoc.module.lowdb.common)
-1.  [function <span class="apidocSignatureSpan">lowdb.common.</span>init (db, key, source)](#apidoc.element.lowdb.common.init)
+1.  [function <span class="apidocSignatureSpan"></span>lowdb (source)](#apidoc.element.lowdb.lowdb)
+1.  [function <span class="apidocSignatureSpan">lowdb.</span>toString ()](#apidoc.element.lowdb.toString)
 
 
 
 # <a name="apidoc.module.lowdb"></a>[module lowdb](#apidoc.module.lowdb)
 
-
-
-# <a name="apidoc.module.lowdb.common"></a>[module lowdb.common](#apidoc.module.lowdb.common)
-
-#### <a name="apidoc.element.lowdb.common.init"></a>[function <span class="apidocSignatureSpan">lowdb.common.</span>init (db, key, source)](#apidoc.element.lowdb.common.init)
+#### <a name="apidoc.element.lowdb.lowdb"></a>[function <span class="apidocSignatureSpan"></span>lowdb (source)](#apidoc.element.lowdb.lowdb)
 - description and source-code
 ```javascript
-function init(db, key, source) {
-  var _ref = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {},
-      _ref$storage = _ref.storage,
-      storage = _ref$storage === undefined ? defaultStorage : _ref$storage,
-      _ref$format = _ref.format,
-      format = _ref$format === undefined ? {} : _ref$format;
+lowdb = function (source) {
+  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-  db.source = source;
+  // Create a fresh copy of lodash
+  var _ = lodash.runInContext();
+  var db = _.chain({});
 
-  // Set storage
-  // In-memory only if no source is provided
-  db.storage = _extends({}, memory, db.source && storage);
+  // Expose _ for mixins
+  db._ = _;
 
-  db.read = function () {
-    var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : source;
+  // Add write function to lodash
+  // Calls save before returning result
+  _.prototype.write = _.wrap(_.prototype.value, function (func) {
+    var dest = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : source;
 
-    var r = db.storage.read(s, format.deserialize);
+    var funcRes = func.apply(this);
+    return db.write(dest, funcRes);
+  });
 
-    return isPromise(r) ? r.then(db.plant) : db.plant(r);
-  };
-
-  db.write = function () {
-    var dest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : source;
-
-    var value = (arguments.length <= 1 ? 0 : arguments.length - 1) ? arguments.length <= 1 ? undefined : arguments[1] : db.getState
-();
-
-    var w = db.storage.write(dest, db.getState(), format.serialize);
-    return isPromise(w) ? w.then(function () {
-      return value;
-    }) : value;
-  };
-
-  db.plant = function (state) {
-    db[key] = state;
-    return db;
-  };
-
-  db.getState = function () {
-    return db[key];
-  };
-
-  db.setState = function (state) {
-    db.plant(state);
-    return db.write();
-  };
-
-  return db.read();
+  return common.init(db, '__wrapped__', source, opts);
 }
 ```
 - example usage
 ```shell
-...
-      set(db.getState(), path, result);
-      return db.write(source, result);
-    };
+n/a
+```
 
-    return getValue;
-  }
-
-  return common.init(db, '__state__', source, opts);
-};
-...
+#### <a name="apidoc.element.lowdb.toString"></a>[function <span class="apidocSignatureSpan">lowdb.</span>toString ()](#apidoc.element.lowdb.toString)
+- description and source-code
+```javascript
+toString = function () {
+    return toString;
+}
+```
+- example usage
+```shell
+n/a
 ```
 
 
