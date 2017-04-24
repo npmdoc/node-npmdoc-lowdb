@@ -1,9 +1,14 @@
-# api documentation for  [lowdb (v0.16.2)](https://github.com/typicode/lowdb)  [![npm package](https://img.shields.io/npm/v/npmdoc-lowdb.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-lowdb) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-lowdb.svg)](https://travis-ci.org/npmdoc/node-npmdoc-lowdb)
+# npmdoc-lowdb
+
+#### api documentation for  [lowdb (v0.16.2)](https://github.com/typicode/lowdb)  [![npm package](https://img.shields.io/npm/v/npmdoc-lowdb.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-lowdb) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-lowdb.svg)](https://travis-ci.org/npmdoc/node-npmdoc-lowdb)
+
 #### JSON database for Node and the browser powered by lodash API
 
 [![NPM](https://nodei.co/npm/lowdb.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/lowdb)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-lowdb/build/screenCapture.buildCi.browser.apidoc.html.png)](https://npmdoc.github.io/node-npmdoc-lowdb/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-lowdb/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-lowdb/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-lowdb/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-lowdb/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-lowdb/build/screenCapture.npmPackageListing.svg)
 
@@ -103,62 +108,9 @@
     "standard": {
         "parser": "babel-eslint"
     },
-    "version": "0.16.2"
+    "version": "0.16.2",
+    "bin": {}
 }
-```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module lowdb](#apidoc.module.lowdb)
-1.  [function <span class="apidocSignatureSpan"></span>lowdb (source)](#apidoc.element.lowdb.lowdb)
-1.  [function <span class="apidocSignatureSpan">lowdb.</span>toString ()](#apidoc.element.lowdb.toString)
-
-
-
-# <a name="apidoc.module.lowdb"></a>[module lowdb](#apidoc.module.lowdb)
-
-#### <a name="apidoc.element.lowdb.lowdb"></a>[function <span class="apidocSignatureSpan"></span>lowdb (source)](#apidoc.element.lowdb.lowdb)
-- description and source-code
-```javascript
-lowdb = function (source) {
-  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  // Create a fresh copy of lodash
-  var _ = lodash.runInContext();
-  var db = _.chain({});
-
-  // Expose _ for mixins
-  db._ = _;
-
-  // Add write function to lodash
-  // Calls save before returning result
-  _.prototype.write = _.wrap(_.prototype.value, function (func) {
-    var dest = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : source;
-
-    var funcRes = func.apply(this);
-    return db.write(dest, funcRes);
-  });
-
-  return common.init(db, '__wrapped__', source, opts);
-}
-```
-- example usage
-```shell
-n/a
-```
-
-#### <a name="apidoc.element.lowdb.toString"></a>[function <span class="apidocSignatureSpan">lowdb.</span>toString ()](#apidoc.element.lowdb.toString)
-- description and source-code
-```javascript
-toString = function () {
-    return toString;
-}
-```
-- example usage
-```shell
-n/a
 ```
 
 
