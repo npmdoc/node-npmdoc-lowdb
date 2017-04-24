@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/typicode/lowdb"
-
-    >lowdb (v0.16.2)</a>
+    <a href="https://github.com/typicode/lowdb">lowdb (v0.16.2)</a>
 </h1>
 <h4>JSON database for Node and the browser powered by lodash API</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.lowdb">module lowdb</a><ol>
 
@@ -217,7 +210,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">lowdb = function (source) {
-  var opts = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : {};
+  var opts = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
 
   // Create a fresh copy of lodash
   var _ = lodash.runInContext();
@@ -229,13 +222,13 @@
   // Add write function to lodash
   // Calls save before returning result
   _.prototype.write = _.wrap(_.prototype.value, function (func) {
-    var dest = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : source;
+    var dest = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : source;
 
     var funcRes = func.apply(this);
     return db.write(dest, funcRes);
   });
 
-  return common.init(db, &#x27;__wrapped__&#x27;, source, opts);
+  return common.init(db, '__wrapped__', source, opts);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -265,22 +258,22 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function browserRead(source) {
-  var deserialize = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : JSON.parse;
+  var deserialize = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : JSON.parse;
 
   var data = localStorage.getItem(source);
   if (data) {
     return deserialize(data);
   } else {
-    localStorage.setItem(source, &#x27;{}&#x27;);
+    localStorage.setItem(source, '{}');
     return {};
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 db.write()            // writes to db.json
-db.write(&#x27;copy.json&#x27;) // writes to copy.json
+db.write('copy.json') // writes to copy.json
 ```
 
 __db.<span class="apidocCodeKeywordSpan">read</span>([source])__
@@ -288,9 +281,9 @@ __db.<span class="apidocCodeKeywordSpan">read</span>([source])__
 Reads source using `storage.read` option. Depending on the storage, it may return a promise.
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 db.read()            // reads db.json
-db.read(&#x27;copy.json&#x27;) // reads copy.json
+db.read('copy.json') // reads copy.json
 ...</pre></li>
     </ul>
 
@@ -304,23 +297,23 @@ db.read(&#x27;copy.json&#x27;) // reads copy.json
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function browserWrite(dest, obj) {
-  var serialize = arguments.length &#x3e; 2 &#x26;&#x26; arguments[2] !== undefined ? arguments[2] : stringify;
+  var serialize = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : stringify;
 
   localStorage.setItem(dest, serialize(obj));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-&#x3e; A small local database powered by lodash API
+&gt; A small local database powered by lodash API
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 
 // Set some defaults if your JSON file is empty
 db.defaults({ posts: [], user: {} })
   .<span class="apidocCodeKeywordSpan">write</span>()
 
 // Add a post
-db.get(&#x27;posts&#x27;)
-  .push({ id: 1, title: &#x27;lowdb is awesome&#x27;})
+db.get('posts')
+  .push({ id: 1, title: 'lowdb is awesome'})
   .write()
 
 // Set a user
@@ -342,7 +335,7 @@ db.get(&#x27;posts&#x27;)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function init(db, key, source) {
-  var _ref = arguments.length &#x3e; 3 &#x26;&#x26; arguments[3] !== undefined ? arguments[3] : {},
+  var _ref = arguments.length &gt; 3 &amp;&amp; arguments[3] !== undefined ? arguments[3] : {},
       _ref$storage = _ref.storage,
       storage = _ref$storage === undefined ? defaultStorage : _ref$storage,
       _ref$format = _ref.format,
@@ -352,10 +345,10 @@ db.get(&#x27;posts&#x27;)
 
   // Set storage
   // In-memory only if no source is provided
-  db.storage = _extends({}, memory, db.source &#x26;&#x26; storage);
+  db.storage = _extends({}, memory, db.source &amp;&amp; storage);
 
   db.read = function () {
-    var s = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : source;
+    var s = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : source;
 
     var r = db.storage.read(s, format.deserialize);
 
@@ -363,9 +356,9 @@ db.get(&#x27;posts&#x27;)
   };
 
   db.write = function () {
-    var dest = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : source;
+    var dest = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : source;
 
-    var value = (arguments.length &#x3c;= 1 ? 0 : arguments.length - 1) ? arguments.length &#x3c;= 1 ? undefined : arguments[1] : db.getState
+    var value = (arguments.length &lt;= 1 ? 0 : arguments.length - 1) ? arguments.length &lt;= 1 ? undefined : arguments[1] : db.getState
 ();
 
     var w = db.storage.write(dest, db.getState(), format.serialize);
@@ -398,7 +391,7 @@ db.get(&#x27;posts&#x27;)
     return getValue;
   }
 
-  return common.<span class="apidocCodeKeywordSpan">init</span>(db, &#x27;__state__&#x27;, source, opts);
+  return common.<span class="apidocCodeKeywordSpan">init</span>(db, '__state__', source, opts);
 };
 ...</pre></li>
     </ul>
@@ -418,32 +411,32 @@ db.get(&#x27;posts&#x27;)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fileSyncRead(source) {
-  var deserialize = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : JSON.parse;
+  var deserialize = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : JSON.parse;
 
   if (fs.existsSync(source)) {
     // Read database
-    var data = fs.readFileSync(source, &#x27;utf-8&#x27;).trim() || &#x27;{}&#x27;;
+    var data = fs.readFileSync(source, 'utf-8').trim() || '{}';
 
     try {
       return deserialize(data);
     } catch (e) {
       if (e instanceof SyntaxError) {
-        e.message = &#x27;Malformed JSON in file: &#x27; + source + &#x27;\n&#x27; + e.message;
+        e.message = 'Malformed JSON in file: ' + source + '\n' + e.message;
       }
       throw e;
     }
   } else {
     // Initialize empty database
-    fs.writeFileSync(source, &#x27;{}&#x27;);
+    fs.writeFileSync(source, '{}');
     return {};
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 db.write()            // writes to db.json
-db.write(&#x27;copy.json&#x27;) // writes to copy.json
+db.write('copy.json') // writes to copy.json
 ```
 
 __db.<span class="apidocCodeKeywordSpan">read</span>([source])__
@@ -451,9 +444,9 @@ __db.<span class="apidocCodeKeywordSpan">read</span>([source])__
 Reads source using `storage.read` option. Depending on the storage, it may return a promise.
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 db.read()            // reads db.json
-db.read(&#x27;copy.json&#x27;) // reads copy.json
+db.read('copy.json') // reads copy.json
 ...</pre></li>
     </ul>
 
@@ -467,7 +460,7 @@ db.read(&#x27;copy.json&#x27;) // reads copy.json
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fileAsyncWrite(dest, obj) {
-  var serialize = arguments.length &#x3e; 2 &#x26;&#x26; arguments[2] !== undefined ? arguments[2] : stringify;
+  var serialize = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : stringify;
 
   return new Promise(function (resolve, reject) {
     var data = serialize(obj);
@@ -479,18 +472,18 @@ db.read(&#x27;copy.json&#x27;) // reads copy.json
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-&#x3e; A small local database powered by lodash API
+&gt; A small local database powered by lodash API
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 
 // Set some defaults if your JSON file is empty
 db.defaults({ posts: [], user: {} })
   .<span class="apidocCodeKeywordSpan">write</span>()
 
 // Add a post
-db.get(&#x27;posts&#x27;)
-  .push({ id: 1, title: &#x27;lowdb is awesome&#x27;})
+db.get('posts')
+  .push({ id: 1, title: 'lowdb is awesome'})
   .write()
 
 // Set a user
@@ -512,32 +505,32 @@ db.get(&#x27;posts&#x27;)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fileSyncRead(source) {
-  var deserialize = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : JSON.parse;
+  var deserialize = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : JSON.parse;
 
   if (fs.existsSync(source)) {
     // Read database
-    var data = fs.readFileSync(source, &#x27;utf-8&#x27;).trim() || &#x27;{}&#x27;;
+    var data = fs.readFileSync(source, 'utf-8').trim() || '{}';
 
     try {
       return deserialize(data);
     } catch (e) {
       if (e instanceof SyntaxError) {
-        e.message = &#x27;Malformed JSON in file: &#x27; + source + &#x27;\n&#x27; + e.message;
+        e.message = 'Malformed JSON in file: ' + source + '\n' + e.message;
       }
       throw e;
     }
   } else {
     // Initialize empty database
-    fs.writeFileSync(source, &#x27;{}&#x27;);
+    fs.writeFileSync(source, '{}');
     return {};
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 db.write()            // writes to db.json
-db.write(&#x27;copy.json&#x27;) // writes to copy.json
+db.write('copy.json') // writes to copy.json
 ```
 
 __db.<span class="apidocCodeKeywordSpan">read</span>([source])__
@@ -545,9 +538,9 @@ __db.<span class="apidocCodeKeywordSpan">read</span>([source])__
 Reads source using `storage.read` option. Depending on the storage, it may return a promise.
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 db.read()            // reads db.json
-db.read(&#x27;copy.json&#x27;) // reads copy.json
+db.read('copy.json') // reads copy.json
 ...</pre></li>
     </ul>
 
@@ -561,24 +554,24 @@ db.read(&#x27;copy.json&#x27;) // reads copy.json
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fileSyncWrite(dest, obj) {
-  var serialize = arguments.length &#x3e; 2 &#x26;&#x26; arguments[2] !== undefined ? arguments[2] : stringify;
+  var serialize = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : stringify;
 
   var data = serialize(obj);
   fs.writeFileSync(dest, data);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-&#x3e; A small local database powered by lodash API
+&gt; A small local database powered by lodash API
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 
 // Set some defaults if your JSON file is empty
 db.defaults({ posts: [], user: {} })
   .<span class="apidocCodeKeywordSpan">write</span>()
 
 // Add a post
-db.get(&#x27;posts&#x27;)
-  .push({ id: 1, title: &#x27;lowdb is awesome&#x27;})
+db.get('posts')
+  .push({ id: 1, title: 'lowdb is awesome'})
   .write()
 
 // Set a user
@@ -605,9 +598,9 @@ db.get(&#x27;posts&#x27;)
     <li>example usage<pre class="apidocCodePre">...
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 db.write()            // writes to db.json
-db.write(&#x27;copy.json&#x27;) // writes to copy.json
+db.write('copy.json') // writes to copy.json
 ```
 
 __db.<span class="apidocCodeKeywordSpan">read</span>([source])__
@@ -615,9 +608,9 @@ __db.<span class="apidocCodeKeywordSpan">read</span>([source])__
 Reads source using `storage.read` option. Depending on the storage, it may return a promise.
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 db.read()            // reads db.json
-db.read(&#x27;copy.json&#x27;) // reads copy.json
+db.read('copy.json') // reads copy.json
 ...</pre></li>
     </ul>
 
@@ -634,18 +627,18 @@ db.read(&#x27;copy.json&#x27;) // reads copy.json
   return {};
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-&#x3e; A small local database powered by lodash API
+&gt; A small local database powered by lodash API
 
 ```js
-const db = low(&#x27;db.json&#x27;)
+const db = low('db.json')
 
 // Set some defaults if your JSON file is empty
 db.defaults({ posts: [], user: {} })
   .<span class="apidocCodeKeywordSpan">write</span>()
 
 // Add a post
-db.get(&#x27;posts&#x27;)
-  .push({ id: 1, title: &#x27;lowdb is awesome&#x27;})
+db.get('posts')
+  .push({ id: 1, title: 'lowdb is awesome'})
   .write()
 
 // Set a user
@@ -661,3 +654,4 @@ db.get(&#x27;posts&#x27;)
     ]
 </div>
 </div>
+</body></html>

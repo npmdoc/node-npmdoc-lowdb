@@ -72,8 +72,130 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.lowdb.toString">
-            function <span class="apidocSignatureSpan">lowdb.</span>toString
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">lowdb.</span>browser</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">lowdb.</span>common</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">lowdb.</span>file_async</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">lowdb.</span>file_sync</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">lowdb.</span>memory</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.lowdb.browser">module lowdb.browser</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.browser.read">
+            function <span class="apidocSignatureSpan">lowdb.browser.</span>read
+            <span class="apidocSignatureSpan">(source)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.browser.write">
+            function <span class="apidocSignatureSpan">lowdb.browser.</span>write
+            <span class="apidocSignatureSpan">(dest, obj)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.lowdb.common">module lowdb.common</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.common.init">
+            function <span class="apidocSignatureSpan">lowdb.common.</span>init
+            <span class="apidocSignatureSpan">(db, key, source)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.lowdb.file_async">module lowdb.file_async</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.file_async.read">
+            function <span class="apidocSignatureSpan">lowdb.file_async.</span>read
+            <span class="apidocSignatureSpan">(source)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.file_async.write">
+            function <span class="apidocSignatureSpan">lowdb.file_async.</span>write
+            <span class="apidocSignatureSpan">(dest, obj)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.lowdb.file_sync">module lowdb.file_sync</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.file_sync.read">
+            function <span class="apidocSignatureSpan">lowdb.file_sync.</span>read
+            <span class="apidocSignatureSpan">(source)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.file_sync.write">
+            function <span class="apidocSignatureSpan">lowdb.file_sync.</span>write
+            <span class="apidocSignatureSpan">(dest, obj)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.lowdb.memory">module lowdb.memory</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.memory.read">
+            function <span class="apidocSignatureSpan">lowdb.memory.</span>read
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.lowdb.memory.write">
+            function <span class="apidocSignatureSpan">lowdb.memory.</span>write
             <span class="apidocSignatureSpan">()</span>
             </a>
 
@@ -120,17 +242,414 @@
 
 
 
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.lowdb.browser" id="apidoc.module.lowdb.browser">module lowdb.browser</a></h1>
+
+
     <h2>
-        <a href="#apidoc.element.lowdb.toString" id="apidoc.element.lowdb.toString">
-        function <span class="apidocSignatureSpan">lowdb.</span>toString
+        <a href="#apidoc.element.lowdb.browser.read" id="apidoc.element.lowdb.browser.read">
+        function <span class="apidocSignatureSpan">lowdb.browser.</span>read
+        <span class="apidocSignatureSpan">(source)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function browserRead(source) {
+  var deserialize = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : JSON.parse;
+
+  var data = localStorage.getItem(source);
+  if (data) {
+    return deserialize(data);
+  } else {
+    localStorage.setItem(source, &#x27;{}&#x27;);
+    return {};
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```js
+const db = low(&#x27;db.json&#x27;)
+db.write()            // writes to db.json
+db.write(&#x27;copy.json&#x27;) // writes to copy.json
+```
+
+__db.<span class="apidocCodeKeywordSpan">read</span>([source])__
+
+Reads source using `storage.read` option. Depending on the storage, it may return a promise.
+
+```js
+const db = low(&#x27;db.json&#x27;)
+db.read()            // reads db.json
+db.read(&#x27;copy.json&#x27;) // reads copy.json
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.browser.write" id="apidoc.element.lowdb.browser.write">
+        function <span class="apidocSignatureSpan">lowdb.browser.</span>write
+        <span class="apidocSignatureSpan">(dest, obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function browserWrite(dest, obj) {
+  var serialize = arguments.length &#x3e; 2 &#x26;&#x26; arguments[2] !== undefined ? arguments[2] : stringify;
+
+  localStorage.setItem(dest, serialize(obj));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+&#x3e; A small local database powered by lodash API
+
+```js
+const db = low(&#x27;db.json&#x27;)
+
+// Set some defaults if your JSON file is empty
+db.defaults({ posts: [], user: {} })
+  .<span class="apidocCodeKeywordSpan">write</span>()
+
+// Add a post
+db.get(&#x27;posts&#x27;)
+  .push({ id: 1, title: &#x27;lowdb is awesome&#x27;})
+  .write()
+
+// Set a user
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.lowdb.common" id="apidoc.module.lowdb.common">module lowdb.common</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.common.init" id="apidoc.element.lowdb.common.init">
+        function <span class="apidocSignatureSpan">lowdb.common.</span>init
+        <span class="apidocSignatureSpan">(db, key, source)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function init(db, key, source) {
+  var _ref = arguments.length &#x3e; 3 &#x26;&#x26; arguments[3] !== undefined ? arguments[3] : {},
+      _ref$storage = _ref.storage,
+      storage = _ref$storage === undefined ? defaultStorage : _ref$storage,
+      _ref$format = _ref.format,
+      format = _ref$format === undefined ? {} : _ref$format;
+
+  db.source = source;
+
+  // Set storage
+  // In-memory only if no source is provided
+  db.storage = _extends({}, memory, db.source &#x26;&#x26; storage);
+
+  db.read = function () {
+    var s = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : source;
+
+    var r = db.storage.read(s, format.deserialize);
+
+    return isPromise(r) ? r.then(db.plant) : db.plant(r);
+  };
+
+  db.write = function () {
+    var dest = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : source;
+
+    var value = (arguments.length &#x3c;= 1 ? 0 : arguments.length - 1) ? arguments.length &#x3c;= 1 ? undefined : arguments[1] : db.getState
+();
+
+    var w = db.storage.write(dest, db.getState(), format.serialize);
+    return isPromise(w) ? w.then(function () {
+      return value;
+    }) : value;
+  };
+
+  db.plant = function (state) {
+    db[key] = state;
+    return db;
+  };
+
+  db.getState = function () {
+    return db[key];
+  };
+
+  db.setState = function (state) {
+    db.plant(state);
+    return db.write();
+  };
+
+  return db.read();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      set(db.getState(), path, result);
+      return db.write(source, result);
+    };
+
+    return getValue;
+  }
+
+  return common.<span class="apidocCodeKeywordSpan">init</span>(db, &#x27;__state__&#x27;, source, opts);
+};
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.lowdb.file_async" id="apidoc.module.lowdb.file_async">module lowdb.file_async</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.file_async.read" id="apidoc.element.lowdb.file_async.read">
+        function <span class="apidocSignatureSpan">lowdb.file_async.</span>read
+        <span class="apidocSignatureSpan">(source)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function fileSyncRead(source) {
+  var deserialize = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : JSON.parse;
+
+  if (fs.existsSync(source)) {
+    // Read database
+    var data = fs.readFileSync(source, &#x27;utf-8&#x27;).trim() || &#x27;{}&#x27;;
+
+    try {
+      return deserialize(data);
+    } catch (e) {
+      if (e instanceof SyntaxError) {
+        e.message = &#x27;Malformed JSON in file: &#x27; + source + &#x27;\n&#x27; + e.message;
+      }
+      throw e;
+    }
+  } else {
+    // Initialize empty database
+    fs.writeFileSync(source, &#x27;{}&#x27;);
+    return {};
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```js
+const db = low(&#x27;db.json&#x27;)
+db.write()            // writes to db.json
+db.write(&#x27;copy.json&#x27;) // writes to copy.json
+```
+
+__db.<span class="apidocCodeKeywordSpan">read</span>([source])__
+
+Reads source using `storage.read` option. Depending on the storage, it may return a promise.
+
+```js
+const db = low(&#x27;db.json&#x27;)
+db.read()            // reads db.json
+db.read(&#x27;copy.json&#x27;) // reads copy.json
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.file_async.write" id="apidoc.element.lowdb.file_async.write">
+        function <span class="apidocSignatureSpan">lowdb.file_async.</span>write
+        <span class="apidocSignatureSpan">(dest, obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function fileAsyncWrite(dest, obj) {
+  var serialize = arguments.length &#x3e; 2 &#x26;&#x26; arguments[2] !== undefined ? arguments[2] : stringify;
+
+  return new Promise(function (resolve, reject) {
+    var data = serialize(obj);
+
+    steno.writeFile(dest, data, function (err) {
+      if (err) return reject(err);
+      resolve();
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+&#x3e; A small local database powered by lodash API
+
+```js
+const db = low(&#x27;db.json&#x27;)
+
+// Set some defaults if your JSON file is empty
+db.defaults({ posts: [], user: {} })
+  .<span class="apidocCodeKeywordSpan">write</span>()
+
+// Add a post
+db.get(&#x27;posts&#x27;)
+  .push({ id: 1, title: &#x27;lowdb is awesome&#x27;})
+  .write()
+
+// Set a user
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.lowdb.file_sync" id="apidoc.module.lowdb.file_sync">module lowdb.file_sync</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.file_sync.read" id="apidoc.element.lowdb.file_sync.read">
+        function <span class="apidocSignatureSpan">lowdb.file_sync.</span>read
+        <span class="apidocSignatureSpan">(source)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function fileSyncRead(source) {
+  var deserialize = arguments.length &#x3e; 1 &#x26;&#x26; arguments[1] !== undefined ? arguments[1] : JSON.parse;
+
+  if (fs.existsSync(source)) {
+    // Read database
+    var data = fs.readFileSync(source, &#x27;utf-8&#x27;).trim() || &#x27;{}&#x27;;
+
+    try {
+      return deserialize(data);
+    } catch (e) {
+      if (e instanceof SyntaxError) {
+        e.message = &#x27;Malformed JSON in file: &#x27; + source + &#x27;\n&#x27; + e.message;
+      }
+      throw e;
+    }
+  } else {
+    // Initialize empty database
+    fs.writeFileSync(source, &#x27;{}&#x27;);
+    return {};
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```js
+const db = low(&#x27;db.json&#x27;)
+db.write()            // writes to db.json
+db.write(&#x27;copy.json&#x27;) // writes to copy.json
+```
+
+__db.<span class="apidocCodeKeywordSpan">read</span>([source])__
+
+Reads source using `storage.read` option. Depending on the storage, it may return a promise.
+
+```js
+const db = low(&#x27;db.json&#x27;)
+db.read()            // reads db.json
+db.read(&#x27;copy.json&#x27;) // reads copy.json
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.file_sync.write" id="apidoc.element.lowdb.file_sync.write">
+        function <span class="apidocSignatureSpan">lowdb.file_sync.</span>write
+        <span class="apidocSignatureSpan">(dest, obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function fileSyncWrite(dest, obj) {
+  var serialize = arguments.length &#x3e; 2 &#x26;&#x26; arguments[2] !== undefined ? arguments[2] : stringify;
+
+  var data = serialize(obj);
+  fs.writeFileSync(dest, data);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+&#x3e; A small local database powered by lodash API
+
+```js
+const db = low(&#x27;db.json&#x27;)
+
+// Set some defaults if your JSON file is empty
+db.defaults({ posts: [], user: {} })
+  .<span class="apidocCodeKeywordSpan">write</span>()
+
+// Add a post
+db.get(&#x27;posts&#x27;)
+  .push({ id: 1, title: &#x27;lowdb is awesome&#x27;})
+  .write()
+
+// Set a user
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.lowdb.memory" id="apidoc.module.lowdb.memory">module lowdb.memory</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.memory.read" id="apidoc.element.lowdb.memory.read">
+        function <span class="apidocSignatureSpan">lowdb.memory.</span>read
         <span class="apidocSignatureSpan">()</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return toString;
+    <li>description and source-code<pre class="apidocCodePre">function memoryRead() {
+  return {};
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```js
+const db = low(&#x27;db.json&#x27;)
+db.write()            // writes to db.json
+db.write(&#x27;copy.json&#x27;) // writes to copy.json
+```
+
+__db.<span class="apidocCodeKeywordSpan">read</span>([source])__
+
+Reads source using `storage.read` option. Depending on the storage, it may return a promise.
+
+```js
+const db = low(&#x27;db.json&#x27;)
+db.read()            // reads db.json
+db.read(&#x27;copy.json&#x27;) // reads copy.json
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.lowdb.memory.write" id="apidoc.element.lowdb.memory.write">
+        function <span class="apidocSignatureSpan">lowdb.memory.</span>write
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function memoryWrite() {
+  return {};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+&#x3e; A small local database powered by lodash API
+
+```js
+const db = low(&#x27;db.json&#x27;)
+
+// Set some defaults if your JSON file is empty
+db.defaults({ posts: [], user: {} })
+  .<span class="apidocCodeKeywordSpan">write</span>()
+
+// Add a post
+db.get(&#x27;posts&#x27;)
+  .push({ id: 1, title: &#x27;lowdb is awesome&#x27;})
+  .write()
+
+// Set a user
+...</pre></li>
     </ul>
 
 
